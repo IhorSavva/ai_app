@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_ai_app/classes/open_ai_class.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,7 +59,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  Future<void> _incrementCounter()  async {
+    var test = OpenAIClass();
+    var text = await test.translateText('Привет, меня зовут Игорь. Я сейчас живу на Шри-Ланке, и не знаю что такое снег', 'Ukrainian');
+    var a = await test.fromTextToVoice(text);
+    AudioPlayer audioPlayer = AudioPlayer();
+    audioPlayer.play(DeviceFileSource(a));
+    print(a);
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
